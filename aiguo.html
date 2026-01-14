@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>中国军力 守护和平</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#0a192f;color:#fff;}
+        /* H5全屏容器 */
+        .h5-container{width:100vw;height:100vh;overflow-y:auto;scroll-behavior:smooth;}
+        /* 轮播图区域 */
+        .banner-swiper{width:100%;height:60vh;position:relative;overflow:hidden;}
+        .swiper-wrap{display:flex;width:300%;height:100%;animation:swiper 15s infinite linear;}
+        .swiper-item{width:100%;height:100%;background:center/cover no-repeat;}
+        .swiper-mask{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.7));}
+        .swiper-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:2;}
+        .main-title{font-size:32px;font-weight:bold;margin-bottom:12px;color:#f0f8ff;}
+        .main-desc{font-size:15px;line-height:1.6;color:#e0efff;max-width:80%;margin:0 auto;}
+        /* 核心板块-滚动渐入 */
+        .power-section{padding:40px 20px;text-align:center;opacity:0;transform:translateY(30px);transition:all 0.8s ease;}
+        .power-section.active{opacity:1;transform:translateY(0);}
+        .section-title{font-size:24px;margin-bottom:35px;color:#fff;border-bottom:2px solid #1768ac;padding-bottom:10px;display:inline-block;}
+        .power-list{display:flex;justify-content:space-around;flex-wrap:wrap;gap:20px;}
+        .power-card{width:110px;height:130px;background:rgba(255,255,255,0.1);border-radius:10px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:10px;backdrop-filter:blur(5px);transition:transform 0.3s;}
+        .power-card:hover{transform:scale(1.05);}
+        .card-icon{font-size:36px;margin-bottom:10px;}
+        .card-text{font-size:14px;text-align:center;}
+        /* 底部标语 */
+        .footer{padding:25px 0;text-align:center;font-size:13px;color:#a9bfff;background:rgba(0,0,0,0.5);}
+        /* 轮播动画 */
+        @keyframes swiper{
+            0%,28%{transform:translateX(0);}
+            33%,61%{transform:translateX(-100%);}
+            66%,100%{transform:translateX(-200%);}
+        }
+    </style>
+</head>
+<body>
+    <div class="h5-container">
+        <!-- 轮播图区域（替换src为合规图片） -->
+        <div class="banner-swiper">
+            <div class="swiper-wrap">
+                <div class="swiper-item" style="background-image:url(https://picsum.photos/id/1071/1080/1920)"></div>
+                <div class="swiper-item" style="background-image:url(https://picsum.photos/id/1059/1080/1920)"></div>
+                <div class="swiper-item" style="background-image:url(https://picsum.photos/id/1067/1080/1920)"></div>
+            </div>
+            <div class="swiper-mask"></div>
+            <div class="swiper-text">
+                <h1 class="main-title">砺剑铸盾 守护山河</h1>
+                <p class="main-desc">中国军力稳步发展，以实力捍卫国家主权，以担当守护世界和平</p>
+            </div>
+        </div>
+
+        <!-- 军力板块-滚动渐入 -->
+        <div class="power-section" id="power">
+            <h2 class="section-title">国防力量 硬核守护</h2>
+            <div class="power-list">
+                <div class="power-card">
+                    <div class="card-icon">✈️</div>
+                    <div class="card-text">空中力量</div>
+                </div>
+                <div class="power-card">
+                    <div class="card-icon">🚢</div>
+                    <div class="card-text">海上防卫</div>
+                </div>
+                <div class="power-card">
+                    <div class="card-icon">🪖</div>
+                    <div class="card-text">陆地精兵</div>
+                </div>
+                <div class="power-card">
+                    <div class="card-icon">🛰️</div>
+                    <div class="card-text">国防科技</div>
+                </div>
+                <div class="power-card">
+                    <div class="card-icon">🛡️</div>
+                    <div class="card-text">边防守护</div>
+                </div>
+                <div class="power-card">
+                    <div class="card-icon">🚀</div>
+                    <div class="card-text">战略威慑</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <div class="footer">强军兴邦 · 和平发展 ｜ 捍卫主权 · 守护安宁</div>
+    </div>
+
+    <script>
+        // 滚动渐入逻辑
+        const section = document.getElementById('power');
+        window.addEventListener('scroll',()=>{
+            const scrollTop = window.scrollY;
+            const offsetTop = section.offsetTop - 200;
+            if(scrollTop >= offsetTop){
+                section.classList.add('active');
+            }
+        })
+        // 初始触发一次（适配小屏）
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
