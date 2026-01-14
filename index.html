@@ -9,10 +9,10 @@
         body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f7fa;color:#333;scroll-behavior:smooth;}
         /* 全屏容器 */
         .h5-container{width:100vw;overflow-y:auto;min-height:100vh;}
-        /* 轮播横幅 - 无需本地图 */
+        /* 轮播横幅 - 固定高度+防黑屏，速度放缓 */
         .banner-swiper{width:100%;height:55vh;position:relative;overflow:hidden;}
-        .swiper-wrap{display:flex;width:300%;height:100%;animation:swiperLoop 16s infinite linear;}
-        .swiper-item{width:100%;height:100%;background:center/cover no-repeat;}
+        .swiper-wrap{display:flex;width:300%;height:100%;animation:swiperLoop 25s infinite linear;} /* 速度从16s改为25s，变慢 */
+        .swiper-item{width:100%;height:100%;background:center/cover no-repeat;min-height:100%;} /* 防黑屏兜底 */
         .swiper-mask{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.6));}
         .swiper-title{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#fff;z-index:2;}
         .main-title{font-size:30px;font-weight:bold;margin-bottom:12px;}
@@ -32,17 +32,21 @@
         .highlight{color:#1a5c99;font-weight:500;}
         /* 底部声明 */
         .footer{padding:25px 20px;background:#f0f7ff;text-align:center;font-size:13px;color:#666;}
-        /* 轮播动画 */
+        /* 循环滚动动画 - 无缝衔接+慢速度 */
         @keyframes swiperLoop{
-            0%,28%{transform:translateX(0);}
-            33%,61%{transform:translateX(-100%);}
-            66%,100%{transform:translateX(-200%);}
+            0%{transform:translateX(0);}
+            32%{transform:translateX(0);} /* 每张图停留更久 */
+            33%{transform:translateX(-100%);}
+            65%{transform:translateX(-100%);}
+            66%{transform:translateX(-200%);}
+            98%{transform:translateX(-200%);}
+            100%{transform:translateX(0);} /* 无缝切回开头，不黑屏 */
         }
     </style>
 </head>
 <body>
     <div class="h5-container">
-        <!-- 顶部轮播 - 外网https图链，无防盗链，GitHub可直接加载 -->
+        <!-- 顶部轮播 - 循环滚动+慢速度，使用你的仓库图片路径 -->
         <div class="banner-swiper">
             <div class="swiper-wrap">
                 <div class="swiper-item" style="background-image:url(https://github.com/lj734999889/lj734999889.github.io/raw/main/1.png)"></div>
@@ -55,7 +59,6 @@
                 <p class="sub-title">探索生命密码，赋能医学与生物科技革新</p>
             </div>
         </div>
-
         <!-- 核心科普板块 - 滚动渐入 -->
         <div class="content-section" id="mainContent">
             <h2 class="section-title">基因编辑核心技术与应用</h2>
@@ -85,15 +88,12 @@
                     <div class="card-text">伦理规范探索</div>
                 </div>
             </div>
-
             <p class="intro-text">基因编辑是对生物体基因组特定目标基因进行<span class="highlight">精准修饰</span>的技术，其中CRISPR-Cas9技术凭借简便、高效的特点，推动生命科学领域飞速发展。该技术可实现基因敲除、插入、替换等操作，为遗传病治疗、农业育种、生物医药等领域提供新方案。</p>
             <p class="intro-text">目前基因编辑仍处于<span class="highlight">科学研究与临床探索阶段</span>，在技术完善、安全性评估、伦理规范等方面仍需持续推进，最终实现技术造福人类、与自然和谐发展的目标。</p>
         </div>
-
         <!-- 底部 -->
         <div class="footer">基因编辑 · 科学探索 · 伦理先行 | 生命科技前沿科普H5</div>
     </div>
-
     <script>
         // 滚动渐入逻辑 - 无需额外配置
         const contentSection = document.getElementById('mainContent');
