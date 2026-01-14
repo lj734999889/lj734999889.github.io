@@ -9,29 +9,15 @@
         body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f7fa;color:#333;scroll-behavior:smooth;}
         /* 全屏容器 */
         .h5-container{width:100vw;overflow-y:auto;min-height:100vh;}
-        /* 轮播横幅 - 无需本地图 */
-        .banner-swiper{width:100%;height:55vh;position:relative;overflow:hidden;}
-        .swiper-wrap{display:flex;width:300%;height:100%;animation:swiperLoop 16s infinite linear;}
-        .swiper-item{width:100%;height:100%;background:center/cover no-repeat;}
+        .h5-container{width:100vw;overflow-y:auto;min-height:100vh;}
+        /* 轮播横幅 - 固定高度防黑屏，无缝滚动适配 */
+        .banner-swiper{width:100%;height:500px;position:relative;overflow:hidden;}
+        .swiper-wrap{display:flex;width:300%;height:100%;animation:swiperLoop 18s infinite linear;}
+        .swiper-item{width:100%;height:100%;background:center/cover no-repeat;min-height:100%;}
         .swiper-mask{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.6));}
         .swiper-title{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#fff;z-index:2;}
         .main-title{font-size:30px;font-weight:bold;margin-bottom:12px;}
         .sub-title{font-size:15px;opacity:0.9;max-width:90%;margin:0 auto;}
-        /* 核心内容区 - 滚动渐入 */
-        .content-section{padding:35px 20px;opacity:0;transform:translateY(30px);transition:all 0.8s ease;}
-        .content-section.active{opacity:1;transform:translateY(0);}
-        .section-title{font-size:24px;color:#1a5c99;text-align:center;margin-bottom:30px;padding-bottom:10px;border-bottom:2px solid #e1f0ff;display:inline-block;margin-left:50%;transform:translateX(-50%);}
-        /* 卡片布局 */
-        .card-list{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;}
-        .info-card{width:150px;height:160px;background:#fff;border-radius:12px;box-shadow:0 3px 10px rgba(26,92,153,0.08);padding:15px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:transform 0.3s;}
-        .info-card:hover{transform:scale(1.03);}
-        .card-icon{font-size:38px;margin-bottom:12px;color:#1a5c99;}
-        .card-text{font-size:14px;color:#333;line-height:1.5;}
-        /* 科普要点 */
-        .intro-text{line-height:1.7;font-size:15px;color:#555;margin:25px auto;max-width:600px;text-align:justify;}
-        .highlight{color:#1a5c99;font-weight:500;}
-        /* 底部声明 */
-        .footer{padding:25px 20px;background:#f0f7ff;text-align:center;font-size:13px;color:#666;}
         /* 轮播动画 */
         @keyframes swiperLoop{
             0%{transform:translateX(0);}
