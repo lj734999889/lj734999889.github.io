@@ -9,10 +9,31 @@
         body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f7fa;color:#333;scroll-behavior:smooth;}
         /* 全屏容器 */
         .h5-container{width:100vw;overflow-y:auto;min-height:100vh;}
-        /* 轮播横幅 - 固定高度+防黑屏，速度放缓 */
-        .banner-swiper{width:100%;height:55vh;position:relative;overflow:hidden;}
-        .swiper-wrap{display:flex;width:300%;height:100%;animation:swiperLoop 25s infinite linear;} /* 速度从16s改为25s，变慢 */
-        .swiper-item{width:100%;height:100%;background:center/cover no-repeat;min-height:100%;} /* 防黑屏兜底 */
+        /* 轮播横幅 - 底色兜底+固定高度，杜绝黑屏 */
+        .banner-swiper{
+            width:100%;
+            height:60vh; /* 提高高度，适配更多设备 */
+            position:relative;
+            overflow:hidden;
+            background:#e1f0ff; /* 浅蓝底色，替代黑屏 */
+        }
+        /* 轮播容器 - 强制无缝循环 */
+        .swiper-wrap{
+            display:flex;
+            width:300%;
+            height:100%;
+            animation:swiperLoop 35s infinite linear; /* 35秒超慢循环，更易观看 */
+            animation-fill-mode: forwards; /* 防止动画结束闪回 */
+            animation-delay: 0.5s; /* 延迟启动，给图片加载时间 */
+        }
+        /* 轮播项 - 图片加载兜底 */
+        .swiper-item{
+            width:100%;
+            height:100%;
+            background:center/cover no-repeat;
+            min-height:100%;
+            background-color:#e1f0ff; /* 图片未加载时显示底色 */
+        }
         .swiper-mask{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.6));}
         .swiper-title{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#fff;z-index:2;}
         .main-title{font-size:30px;font-weight:bold;margin-bottom:12px;}
@@ -32,21 +53,21 @@
         .highlight{color:#1a5c99;font-weight:500;}
         /* 底部声明 */
         .footer{padding:25px 20px;background:#f0f7ff;text-align:center;font-size:13px;color:#666;}
-        /* 循环滚动动画 - 无缝衔接+慢速度 */
+        /* 终极无缝循环动画 - 每张图停留10秒+快速切换 */
         @keyframes swiperLoop{
-            0%{transform:translateX(0);}
-            32%{transform:translateX(0);} /* 每张图停留更久 */
-            33%{transform:translateX(-100%);}
-            65%{transform:translateX(-100%);}
-            66%{transform:translateX(-200%);}
-            98%{transform:translateX(-200%);}
-            100%{transform:translateX(0);} /* 无缝切回开头，不黑屏 */
+            0% { transform: translateX(0); }
+            28.57% { transform: translateX(0); } /* 第1张图停留10秒 */
+            33.33% { transform: translateX(-100%); } /* 0.5秒快速切换 */
+            61.90% { transform: translateX(-100%); } /* 第2张图停留10秒 */
+            66.66% { transform: translateX(-200%); } /* 0.5秒快速切换 */
+            95.23% { transform: translateX(-200%); } /* 第3张图停留10秒 */
+            100% { transform: translateX(0); } /* 无缝切回开头 */
         }
     </style>
 </head>
 <body>
     <div class="h5-container">
-        <!-- 顶部轮播 - 循环滚动+慢速度，使用你的仓库图片路径 -->
+        <!-- 顶部轮播 - 修复闪屏+黑屏，使用你的图片路径 -->
         <div class="banner-swiper">
             <div class="swiper-wrap">
                 <div class="swiper-item" style="background-image:url(https://github.com/lj734999889/lj734999889.github.io/raw/main/1.png)"></div>
@@ -95,15 +116,33 @@
         <div class="footer">基因编辑 · 科学探索 · 伦理先行 | 生命科技前沿科普H5</div>
     </div>
     <script>
-        // 滚动渐入逻辑 - 无需额外配置
+        // 滚动渐入逻辑 + 图片加载检测（额外保障）
         const contentSection = document.getElementById('mainContent');
         const checkScroll = () => {
             const scrollTop = window.scrollY;
             const offset = contentSection.offsetTop - 200;
             scrollTop >= offset && contentSection.classList.add('active');
-        }
+        };
         window.addEventListener('scroll', checkScroll);
-        window.dispatchEvent(new Event('scroll')); // 初始触发
+        window.dispatchEvent(new Event('scroll'));
+
+        // 检测图片加载，加载完成前显示加载提示（可选，进一步防黑屏）
+        const imgUrls = [
+            'https://github.com/lj734999889/lj734999889.github.io/raw/main/1.png',
+            'https://github.com/lj734999889/lj734999889.github.io/raw/main/2.png',
+            'https://github.com/lj734999889/lj734999889.github.io/raw/main/3.png'
+        ];
+        let loadedCount = 0;
+        imgUrls.forEach(url => {
+            const img = new Image();
+            img.src = url;
+            img.onload = () => {
+                loadedCount++;
+                if (loadedCount === imgUrls.length) {
+                    document.querySelector('.swiper-wrap').style.animationDelay = '0s'; // 所有图加载完再启动动画
+                }
+            };
+        });
     </script>
 </body>
 </html>
