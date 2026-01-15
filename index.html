@@ -22,7 +22,7 @@
             display:flex;
             width:300%;
             height:100%;
-            animation:swiperLoop 3000s infinite linear; /* 35秒超慢循环，更易观看 */
+            animation:swiperLoop 45s infinite linear; /* 35秒超慢循环，更易观看 */
             animation-fill-mode: forwards; /* 防止动画结束闪回 */
             animation-delay: 0.5s; /* 延迟启动，给图片加载时间 */
         }
@@ -55,13 +55,12 @@
         .footer{padding:25px 20px;background:#f0f7ff;text-align:center;font-size:13px;color:#666;}
         /* 终极无缝循环动画 - 每张图停留10秒+快速切换 */
         @keyframes swiperLoop{
-            0% { transform: translateX(0); }
-            28.57% { transform: translateX(0); } /* 第1张图停留10秒 */
-            33.33% { transform: translateX(-100%); } /* 0.5秒快速切换 */
-            61.90% { transform: translateX(-100%); } /* 第2张图停留10秒 */
-            66.66% { transform: translateX(-200%); } /* 0.5秒快速切换 */
-            95.23% { transform: translateX(-200%); } /* 第3张图停留10秒 */
-            100% { transform: translateX(0); } /* 无缝切回开头 */
+            0% {transform: translateX(0);}        /* 图1起始 */
+            42.8% {transform: translateX(0);}    /* 15/35≈42.8%，图1停留结束 */
+            45.8% {transform: translateX(-33.3%);}/* 快速滑到图2（占3%时长过渡） */
+            80% {transform: translateX(-33.3%);} /* (15+12)/35≈80%，图2停留结束 */
+            83% {transform: translateX(-66.6%);} /* 快速滑到图3（3%过渡） */
+            100% {transform: translateX(-66.6%);}/* 图3停留到结束，无缝循环 */
         }
     </style>
 </head>
